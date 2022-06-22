@@ -54,4 +54,12 @@ public class UnionFind {
         return false;
      }
      
+      public static void main(String[] args) {
+        int size = 6;
+        int province = 0;
+        UnionFind unionFind = new UnionFind(size);
+
+        int[][] isConnected = {{1,1,0,0,0,0},{1,1,0,0,0,0},{0,0,1,1,1,0},{0,0,1,1,0,0},{0,0,1,0,1,0}, {0,0,0,0,0,1}};
+
+      }     
 }
