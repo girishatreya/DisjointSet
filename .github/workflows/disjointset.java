@@ -1,3 +1,10 @@
+package com.bmuschko.testcontainers;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+//Figure out if the the edges provided are connected or not 
 public class UnionFind {
     int [] root;
     int [] rank; 
@@ -14,7 +21,7 @@ public class UnionFind {
     
     // Find root of a node. 
     // root is the node for whom the root is itself
-    public void basic_find(int x) {
+    public int basic_find(int x) {
         while (x != root[x]) {
             x = root[x];
             
@@ -24,21 +31,56 @@ public class UnionFind {
     
     // Optimize finding the root by using path compression 
     // As we walk up finding the root for a given node , fix the root for the ancestors in a recursive manner
-    public void find(int x) {
+    public int find(int x) {
         if (x == root[x]) {
             return x;
         } 
-        root[x] = find(root[x]);
-        return;
+        return root[x] = find(root[x]);
+        
     }
     
-    // 
+    // Do a union of 2 nodes by attaching root of first node to the root of the other node
+    public void union(int x, int y) {
+        int rootx = find(x);
+        int rooty = find(y); 
+        
+        if (rootx != rooty) {
+            // If rank/depth of rootx is higher, make root of y attach  to root of x
+            if (rank[rootx] > rank[rooty]) {
+                root[rooty] = rootx;
+            } else if (rank[rooty] > rank[rootx]) {
+                // If rank of rooty is higher , then make root of x attach  to root of y
+                root[rootx] = rooty;
+            } else {
+                // Attach root of x to root of y. Increase rank of root y
+                root[rootx] = rooty;
+                rank[rooty] += 1;
+            }
+            
+        }
+    }
+    
+    public boolean connected(int x, int y) {
+       if (find(x) == find(y)) {
+           return true;
+       } 
+       return false;
+    }
     
     public static void main(String args[]) {
-      int x=10;
-      int y=25;
-      int z=x+y;
-
-      System.out.println("Sum of x+y = " + z);
+      UnionFind uf = new UnionFind(10);
+        // 1-2-5-6-7 3-8-9 4
+        uf.union(1, 2);
+        uf.union(2, 5);
+        uf.union(5, 6);
+        uf.union(6, 7);
+        uf.union(3, 8);
+        uf.union(8, 9);
+        System.out.println(uf.connected(1, 5)); // true
+        System.out.println(uf.connected(5, 7)); // true
+        System.out.println(uf.connected(4, 9)); // false
+        // 1-2-5-6-7 3-8-9-4
+        uf.union(9, 4);
+        System.out.println(uf.connected(4, 9)); // true
     }
 }
