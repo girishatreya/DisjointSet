@@ -47,7 +47,7 @@ public class UnionFind {
         }
      }
   
-     public isConnected(int x, int y) {
+     public isconnected(int x, int y) {
         if (root[x] == root[y]) {
             return true;
         }
@@ -60,6 +60,34 @@ public class UnionFind {
         UnionFind unionFind = new UnionFind(size);
 
         int[][] isConnected = {{1,1,0,0,0,0},{1,1,0,0,0,0},{0,0,1,1,1,0},{0,0,1,1,0,0},{0,0,1,0,1,0}, {0,0,0,0,0,1}};
+        for (int i = 0; i < size; i++) {
+             for (int j = 0; j < size; j++) {
+                  if (isConnected[i][j]) {
+                       unionFind.union(i,j);
+                  }
+             }
+        }
+        
 
+        Set<Integer> uniqueSet = new HashSet<>();
+        Map<Integer,Set<Integer>> provinces = new HashMap<>();
+        Set<Integer> getProvinceSet = new HashSet<>();
+           
+        // Once the graph is constructed via union , in the root aray find how many unique entries exist, that is the number of provinces. 
+        // For each unique entry , add the constituents sharing the root
+        for(int i=0 ; i< unionFind.root.length; i++) {
+            if(provinces.get(unionFind.root[i]) != null) {
+                getProvinceSet = provinces.get(unionFind.root[i]);
+            } else {
+                getProvinceSet = new HashSet<>();
+            }
+            getProvinceSet.add(i);
+            provinces.put(unionFind.root[i], getProvinceSet);
+
+            if(!uniqueSet.contains(unionFind.root[i])) {
+                uniqueSet.add(unionFind.root[i]);
+                province++;
+            }
+        }
       }     
 }
