@@ -54,10 +54,10 @@ public class FindCycle {
 
     public static void main(String[] args) {
 
-        int[][] edges = {{0,1},{1,2},{3,4}};
+        int[][] edges = {{0,1},{1,2},{2,3}};
         int[][] edges1 = {{0,1},{1,2},{2,3},{3,4}};
         int[][] edges3 = {{0,1}, {2,3}};
-        int size = 5;
+        int size = 4;
         FindCycle uf = new FindCycle(size);
 
         for(int i = 0; i < edges.length ; i++) {
@@ -71,8 +71,9 @@ public class FindCycle {
         // Each unique root represents a different graph/tree.
         Set<Integer> unique_roots = new HashSet <>();
         for(int k = 0; k < uf.root.length; k++) {
-                if (!unique_roots.contains(uf.root[k])) {
-                    unique_roots.add(uf.root[k]);        
+                // The way edges are presented to the union function may result in having to use the find function instead of directly accessing the root array .
+                if (!unique_roots.contains(uf.find(uf.root[k]))) {
+                    unique_roots.add(uf.find(uf.root[k]));        
                 } 
         }
         System.out.println("No of unique graphs "+ unique_roots.size());
@@ -81,7 +82,7 @@ public class FindCycle {
     }
 
     
-
+ 
  
    
      
