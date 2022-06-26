@@ -1,5 +1,3 @@
-package com.bmuschko.testcontainers;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -9,7 +7,7 @@ public class UnionFind {
     int [] root;
     int [] rank; 
     
-    public void UnionFind(int size ) {
+    public UnionFind(int size ) {
         root = new int [size];
         rank = new int [size];
         for (int i = 0; i < size; i++) {
