@@ -1,6 +1,4 @@
 // No of unique provinces given the n x n connected matrix information
-package com.bmuschko.testcontainers;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
