@@ -8,7 +8,7 @@ public class UnionFind {
      public int [] root;
      public int [] rank;
   
-     public void UnionFind (int size) {
+     public UnionFind (int size) {
             root = new int [size];
             rank = new int [size]; 
             for (int i = 0; i < size; i++) {
@@ -60,7 +60,7 @@ public class UnionFind {
         int[][] isConnected = {{1,1,0,0,0,0},{1,1,0,0,0,0},{0,0,1,1,1,0},{0,0,1,1,0,0},{0,0,1,0,1,0}, {0,0,0,0,0,1}};
         for (int i = 0; i < size; i++) {
              for (int j = 0; j < size; j++) {
-                  if (isConnected[i][j]) {
+                  if (isConnected[i][j] == 1) {
                        unionFind.union(i,j);
                   }
              }
